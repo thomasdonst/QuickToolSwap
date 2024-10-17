@@ -24,27 +24,27 @@ you won’t need to continue holding the key as long as you’re actively using 
 
 ---
 
-## Current mappings
+## Activities
 
 This section outlines the items that will be selected based on what you're looking at:
 
-* Any critter -> Bug net
-* Any plant -> Best hoe from inventory
-* Any water -> Best fishing rod from inventory
-* Any wall or ore -> Best hand drill or pickaxe from inventory
+* **Catching:** Any critter -> Bug net
+* **Farming:** Any plant -> Best hoe from inventory
+* **Fishing:** Any water -> Best fishing rod from inventory
+* **Mining:** Any wall or ore -> Best hand drill or pickaxe from inventory
 
 
 ---
 
 ## Configuration
 
-If you want to customize the mappings, you can adjust the configuration file located at<br>
+If you want to customize the activities, you can adjust the configuration file located at<br>
 `%appdata%\LocalLow\Pugstorm\Core Keeper\Steam\[your steam id]\mods\QuickToolSwap\config.cfg`
 
 Here's an example snippet from the configuration:
 
 ```cfg
-# You can name each task as you like, but each must include `activeOn` and `priorityList`.
+# You can name each activity as you like, but each must include `activeOn` and `priorityList`.
 [Mining]
 
 # Indicates when the item gets selected, based on what you're looking at.
