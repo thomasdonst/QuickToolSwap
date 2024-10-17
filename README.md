@@ -65,5 +65,5 @@ For references for `internal names`, check:
 
 ## Feedback
 
-Feel free to contact me on Discord (@thomas1267) if you have any questions, bug reports, or suggestions.
+Feel free to contact me on Discord (@thomas1267) if you have any questions, bug reports or suggestions.
 
