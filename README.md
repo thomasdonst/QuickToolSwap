@@ -24,12 +24,12 @@ you won’t need to continue holding the key as long as you’re actively using 
 
 ---
 
-## Activities
+## Mappings
 
 This section outlines the items that will be selected based on what you're looking at:
 
 * **Catching:** Any critter -> Bug net
-* **Farming:** Any plant -> Best hoe from inventory
+* **Farming:** Any plant, watered ground, ground slime -> Best hoe from inventory
 * **Fishing:** Any water -> Best fishing rod from inventory
 * **Mining:** Any wall or ore -> Best hand drill or pickaxe from inventory
 
@@ -38,21 +38,20 @@ This section outlines the items that will be selected based on what you're looki
 
 ## Configuration
 
-If you want to customize the activities, you can adjust the configuration file located at<br>
+If you want to add new mappings or edit the existing ones, you can adjust the configuration file located at<br>
 `%appdata%\LocalLow\Pugstorm\Core Keeper\Steam\[your steam id]\mods\QuickToolSwap\config.cfg`
 
 Here's an example snippet from the configuration:
 
 ```cfg
-# You can name each activity as you like, but each must include `activeOn` and `priorityList`.
+# You can name each section as you like, but each must include `activeOn` and `priorityList`.
 [Mining]
 
 # Indicates when the item gets selected, based on what you're looking at.
 # This should only include `internal names` for `object ids` or `tile types`.
 activeOn = ore, wall
  
-# Lists the items to be selected when the activeOn condition is met, 
-# ordered by preference from highest to lowest.
+# Lists the items to be selected when the activeOn condition is met, ordered by preference from highest to lowest.
 # This should only include `internal names` for `object ids`.
 priorityList = LightningGun, LaserDrillTool, LegendaryMiningPick, [...], CopperMiningPick, WoodMiningPick
 ```
@@ -65,5 +64,5 @@ For references for `internal names`, check:
 
 ## Feedback
 
-Feel free to contact me on Discord (@thomas1267) if you have any questions, bug reports or suggestions.
+Feel free to contact me on Discord (**@thomas1267**) if you have any questions, bug reports or suggestions.
 
