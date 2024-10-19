@@ -40,7 +40,8 @@ namespace QuickToolSwap
                 GetMiningSection(),
                 GetFarmingSection(),
                 GetCatchingSection(),
-                GetFishingSection()
+                GetFishingSection(),
+                GetDiggingSection()
             };
             foreach (var section in sections)
                 CreateDefaultSettings(section);
@@ -111,7 +112,6 @@ namespace QuickToolSwap
 
                 return new Section(sectionName, activeOn, priorityList);
             }
-
 
             private static List<string> ToList(string commaSeparatedString)
             {
@@ -189,7 +189,6 @@ namespace QuickToolSwap
             );
         }
 
-
         private static Section GetCatchingSection()
         {
             return new Section
@@ -223,7 +222,6 @@ namespace QuickToolSwap
             );
         }
 
-
         private static Section GetFishingSection()
         {
             return new Section
@@ -242,6 +240,32 @@ namespace QuickToolSwap
                     ObjectID.IronFishingRod,
                     ObjectID.TinFishingRod,
                     ObjectID.WoodFishingRod
+                }.Select(x => x.ToString()).ToList()
+            );
+        }
+
+        private static Section GetDiggingSection()
+        {
+            return new Section
+            (
+                "Digging",
+                new List<object>
+                {
+                    ObjectID.DiggingSpot,
+                    ObjectID.DiggingSpotNature,
+                    ObjectID.DiggingSpotSea,
+                    ObjectID.DiggingSpotDesert,
+                    ObjectID.DiggingSpotLava
+                }.Select(x => x.ToString()).ToList(),
+                new List<ObjectID>
+                {
+                    ObjectID.GalaxiteShovel,
+                    ObjectID.OctarineShovel,
+                    ObjectID.ScarletShovel,
+                    ObjectID.IronShovel,
+                    ObjectID.TinShovel,
+                    ObjectID.CopperShovel,
+                    ObjectID.WoodShovel
                 }.Select(x => x.ToString()).ToList()
             );
         }

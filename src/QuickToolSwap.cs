@@ -18,7 +18,7 @@ namespace QuickToolSwap
 {
     public class QuickToolSwap : IMod
     {
-        private const string Version = "1.0.0";
+        private const string Version = "1.1.0";
         private const string Author = "thomas1267";
         private const string Name = "QuickToolSwap";
 

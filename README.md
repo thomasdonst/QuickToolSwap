@@ -32,6 +32,7 @@ This section outlines the items that will be selected based on what you're looki
 * **Farming:** Any plant, watered ground, ground slime -> Best hoe from inventory
 * **Fishing:** Any water -> Best fishing rod from inventory
 * **Mining:** Any wall or ore -> Best hand drill or pickaxe from inventory
+* **Digging:** Any digging spot -> Best shovel from inventory
 
 
 ---
@@ -66,3 +67,11 @@ For references for `internal names`, check:
 
 Feel free to contact me on Discord (**@thomas1267**) if you have any questions, bug reports or suggestions.
 
+---
+
+## Changelog
+
+### v.1.1.0
+* **New Mapping:** Introduced a new tool mapping for digging. 
+  * **Trigger:** Any diggable spot
+  * **Items:** Prioritizes the most powerful shovel in your inventory
