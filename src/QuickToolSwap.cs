@@ -18,7 +18,7 @@ namespace QuickToolSwap
 {
     public class QuickToolSwap : IMod
     {
-        private const string Version = "1.1.0";
+        private const string Version = "1.1.1";
         private const string Author = "thomas1267";
         private const string Name = "QuickToolSwap";
 
@@ -71,10 +71,11 @@ namespace QuickToolSwap
             if (!IsSwapAllowed()) return;
 
             // Retrieve all tiles and entities that the player is standing in front of and looking at.
-            var targetPosition =
-                (Manager.main.player.WorldPosition + Manager.main.player.targetingDirection).RoundToInt2();
-            GetTilesAt(targetPosition, out var tiles);
-            GetEntitiesAt(targetPosition, out var entities);
+            var playerPosition = Manager.main.player.WorldPosition.RoundToInt2();
+            var targetPosition = playerPosition + Manager.main.player.targetingDirection.RoundToInt2();
+            var positions = new List<int2> { playerPosition, targetPosition };
+            GetTilesAt(positions, out var tiles);
+            GetEntitiesAt(positions, out var entities);
 
             // Choose the most suitable tool based on the identified tiles and entities.
             // Swap the selected tool with the currently equipped slot.
@@ -98,16 +99,20 @@ namespace QuickToolSwap
             Manager.main.player.EquipSlot(_equippedSlotIndex);
         }
 
-        private static void GetTilesAt(int2 position, out List<TileCD> tiles)
+        private static void GetTilesAt(List<int2> positions, out List<TileCD> tiles)
         {
+            tiles = new List<TileCD>();
             var clientSystem = API.Client.World.GetExistingSystemManaged<ClientSystem>();
             var tileAccessor = new TileAccessor(ref clientSystem.CheckedStateRef);
-            var tileList = tileAccessor.Get(position, Allocator.Temp);
-            tiles = tileList.ToList();
-            tileList.Dispose();
+            foreach (var position in positions)
+            {
+                var tileList = tileAccessor.Get(position, Allocator.Temp);
+                tiles.AddRange(tileList);
+                tileList.Dispose();
+            }
         }
 
-        private static void GetEntitiesAt(int2 position, out List<Entity> entities)
+        private static void GetEntitiesAt(List<int2> positions, out List<Entity> entities)
         {
             entities = new List<Entity>();
             var entityManager = API.Client.World.EntityManager;
@@ -119,13 +124,14 @@ namespace QuickToolSwap
             };
             var query = entityManager.CreateEntityQuery(queryDesc);
             var array = query.ToEntityArray(Allocator.Temp);
-            foreach (var entity2 in array)
+            foreach (var position in positions)
             {
-                var transform = entityManager.GetComponentData<LocalTransform>(entity2);
-                var actualPosition = transform.Position.RoundToInt2();
-                if (position.x == actualPosition.x && position.y == actualPosition.y)
+                foreach (var entity2 in array)
                 {
-                    entities.Add(entity2);
+                    var transform = entityManager.GetComponentData<LocalTransform>(entity2);
+                    var actualPosition = transform.Position.RoundToInt2();
+                    if (position.x == actualPosition.x && position.y == actualPosition.y)
+                        entities.Add(entity2);
                 }
             }
 

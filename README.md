@@ -1,17 +1,19 @@
 # QuickToolSwap
 
-## Introduction 
+## Introduction
 
 > [!IMPORTANT]
-> For this mod to work correctly, you should disable `Swap to torch temporarily` and assign a key to `Swap tools quickly` in the settings.
+> For this mod to work correctly, you should disable `Swap to torch temporarily` and assign a key to
+`Swap tools quickly` in the settings.
 >
 > ![img.png](assets/KeyBindings.png)
 
 <br>
 
 
-Bothered by the limited space in your hotbar? With this mod, you can place items anywhere in your inventory, 
-and they’ll temporarily swap into your hand based on what you’re looking at, making item management more efficient and intuitive.
+Bothered by the limited space in your hotbar? With this mod, you can place items anywhere in your inventory,
+and they’ll temporarily swap into your hand based on what you’re looking at, making item management more efficient and
+intuitive.
 
 <img src="assets/Demo.gif" alt="demo"/>
 
@@ -19,7 +21,8 @@ and they’ll temporarily swap into your hand based on what you’re looking at,
 
 ## Usage
 
-To temporarily replace the currently selected item in your hotbar with another item, hold down the assigned key. Once you've swapped an item, 
+To temporarily replace the currently selected item in your hotbar with another item, hold down the assigned key. Once
+you've swapped an item,
 you won’t need to continue holding the key as long as you’re actively using it, whether you're fishing or mining.
 
 ---
@@ -33,7 +36,6 @@ This section outlines the items that will be selected based on what you're looki
 * **Fishing:** Any water -> Best fishing rod from inventory
 * **Mining:** Any wall or ore -> Best hand drill or pickaxe from inventory
 * **Digging:** Any digging spot -> Best shovel from inventory
-
 
 ---
 
@@ -58,6 +60,7 @@ priorityList = LightningGun, LaserDrillTool, LegendaryMiningPick, [...], CopperM
 ```
 
 For references for `internal names`, check:
+
 * https://core-keeper.fandom.com/wiki/Object_IDs
 * https://core-keeper.fandom.com/wiki/Tile_IDs
 
@@ -71,7 +74,11 @@ Feel free to contact me on Discord (**@thomas1267**) if you have any questions, 
 
 ## Changelog
 
+### v.1.1.1
+
+* **Improvement:**  Check for entities and tiles at the player's current position as well, which makes it easier to
+  detect smaller objects.
+
 ### v.1.1.0
-* **New Mapping:** Introduced a new tool mapping for digging. 
-  * **Trigger:** Any diggable spot
-  * **Items:** Prioritizes the most powerful shovel in your inventory
+
+* **New Mapping:** Introduced a new tool mapping for digging.
