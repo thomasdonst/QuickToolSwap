@@ -18,7 +18,7 @@ namespace QuickToolSwap
 {
     public class QuickToolSwap : IMod
     {
-        private const string Version = "1.1.1";
+        private const string Version = "1.1.2";
         private const string Author = "thomas1267";
         private const string Name = "QuickToolSwap";
 
@@ -66,20 +66,22 @@ namespace QuickToolSwap
             LockEquipSlotOnSwap();
         }
 
-        private static void HandleSwap()
+        private void HandleSwap()
         {
             if (!IsSwapAllowed()) return;
 
             // Retrieve all tiles and entities that the player is standing in front of and looking at.
             var playerPosition = Manager.main.player.WorldPosition.RoundToInt2();
-            var targetPosition = playerPosition + Manager.main.player.targetingDirection.RoundToInt2();
+            var facingDirection = Manager.main.player.facingDirection.vec2.RoundToInt().ToInt2();
+            var targetPosition = playerPosition + facingDirection;
             var positions = new List<int2> { playerPosition, targetPosition };
-            GetTilesAt(positions, out var tiles);
-            GetEntitiesAt(positions, out var entities);
+            var tiles = GetTilesAt(positions);
+            var entities = GetEntitiesAt(positions);
 
             // Choose the most suitable tool based on the identified tiles and entities.
-            // Swap the selected tool with the currently equipped slot.
             _toolIndex = DetermineTool(tiles, entities);
+
+            // Swap the selected tool with the currently equipped slot.
             _equippedSlotIndex = Manager.main.player.equippedSlotIndex;
             _isToolSwapped = SwapObjects(_toolIndex, _equippedSlotIndex);
         }
@@ -99,9 +101,9 @@ namespace QuickToolSwap
             Manager.main.player.EquipSlot(_equippedSlotIndex);
         }
 
-        private static void GetTilesAt(List<int2> positions, out List<TileCD> tiles)
+        private static List<TileCD> GetTilesAt(List<int2> positions)
         {
-            tiles = new List<TileCD>();
+            var tiles = new List<TileCD>();
             var clientSystem = API.Client.World.GetExistingSystemManaged<ClientSystem>();
             var tileAccessor = new TileAccessor(ref clientSystem.CheckedStateRef);
             foreach (var position in positions)
@@ -110,11 +112,13 @@ namespace QuickToolSwap
                 tiles.AddRange(tileList);
                 tileList.Dispose();
             }
+
+            return tiles;
         }
 
-        private static void GetEntitiesAt(List<int2> positions, out List<Entity> entities)
+        private static List<Entity> GetEntitiesAt(List<int2> positions)
         {
-            entities = new List<Entity>();
+            var entities = new List<Entity>();
             var entityManager = API.Client.World.EntityManager;
             var queryDesc = new EntityQueryDesc
             {
@@ -136,6 +140,7 @@ namespace QuickToolSwap
             }
 
             array.Dispose();
+            return entities;
         }
 
         private static int DetermineTool(List<TileCD> tiles, List<Entity> entities)
