@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CoreLib;
@@ -18,7 +19,7 @@ namespace QuickToolSwap
 {
     public class QuickToolSwap : IMod
     {
-        private const string Version = "1.1.2";
+        private const string Version = "1.1.3";
         private const string Author = "thomas1267";
         private const string Name = "QuickToolSwap";
 
@@ -66,7 +67,7 @@ namespace QuickToolSwap
             LockEquipSlotOnSwap();
         }
 
-        private void HandleSwap()
+        private static void HandleSwap()
         {
             if (!IsSwapAllowed()) return;
 
@@ -262,7 +263,7 @@ namespace QuickToolSwap
         {
             var isToolCurrentlyUsed = IsMouseButtonCurrentlyDown() || IsKeyBindCurrentlyDown() || IsPlayerFishing();
             var isKeyBindReleasedWhileToolUnused = !IsKeyBindCurrentlyDown() && !isToolCurrentlyUsed;
-            return _isToolSwapped && (isKeyBindReleasedWhileToolUnused || IsAnyUIOpen());
+            return _isToolSwapped && (isKeyBindReleasedWhileToolUnused || IsAnyUIOpen() || IsHotbarChanged());
         }
 
         private static bool IsSwapAllowed()
@@ -272,7 +273,7 @@ namespace QuickToolSwap
 
         private static bool IsEquipSlotLockable()
         {
-            return Manager.main.player.equippedSlotIndex != _equippedSlotIndex && _isToolSwapped;
+            return Manager.main.player.equippedSlotIndex != _equippedSlotIndex && _isToolSwapped && !IsHotbarChanged();
         }
 
         private static bool IsInventoryIndexOutOfRange(int index)
@@ -280,6 +281,12 @@ namespace QuickToolSwap
             var playerController = Manager.main.player;
             var maxInventorySize = playerController.playerInventoryHandler.size - 1;
             return index < 0 || index > maxInventorySize;
+        }
+
+        private static bool IsHotbarChanged()
+        {
+            return _equippedSlotIndex < Manager.main.player.hotbarStartIndex ||
+                   _equippedSlotIndex > Manager.main.player.hotbarEndIndex;
         }
     }
 }
