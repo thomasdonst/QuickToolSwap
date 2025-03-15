@@ -69,16 +69,3 @@ For references for `internal names`, check:
 ## Feedback
 
 Feel free to contact me on Discord (**@thomas1267**) if you have any questions, bug reports or suggestions.
-
----
-
-## Changelog
-
-### v.1.1.1
-
-* **Improvement:**  Check for entities and tiles at the player's current position as well, which makes it easier to
-  detect smaller objects.
-
-### v.1.1.0
-
-* **New Mapping:** Introduced a new tool mapping for digging.
