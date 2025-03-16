@@ -19,7 +19,7 @@ namespace QuickToolSwap
 {
     public class QuickToolSwap : IMod
     {
-        private const string Version = "1.1.3";
+        private const string Version = "1.1.4";
         private const string Author = "thomas1267";
         private const string Name = "QuickToolSwap";
 
@@ -72,8 +72,10 @@ namespace QuickToolSwap
             if (!IsSwapAllowed()) return;
 
             // Retrieve all tiles and entities that the player is standing in front of and looking at.
-            var playerPosition = Manager.main.player.WorldPosition.RoundToInt2();
-            var facingDirection = Manager.main.player.facingDirection.vec2.RoundToInt().ToInt2();
+            var player = Manager.main.player;
+            var playerPosition = player.WorldPosition.RoundToInt2();
+            var facingDirection = EntityUtility.GetComponentData<AnimationOrientationCD>(player.entity, player.world)
+                .facingDirection.vec2.RoundToInt().ToInt2();
             var targetPosition = playerPosition + facingDirection;
             var positions = new List<int2> { playerPosition, targetPosition };
             var tiles = GetTilesAt(positions);
