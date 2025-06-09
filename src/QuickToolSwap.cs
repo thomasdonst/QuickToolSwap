@@ -1,10 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using CoreLib;
 using CoreLib.Data.Configuration;
 using CoreLib.RewiredExtension;
 using PlayerCommand;
+using Pug.UnityExtensions;
 using PugMod;
 using Rewired;
 using Unity.Collections;
@@ -19,7 +19,7 @@ namespace QuickToolSwap
 {
     public class QuickToolSwap : IMod
     {
-        private const string Version = "1.1.4";
+        private const string Version = "1.1.5";
         private const string Author = "thomas1267";
         private const string Name = "QuickToolSwap";
 
